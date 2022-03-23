@@ -17,7 +17,7 @@ import (
  */
 func TestConnect(t *testing.T) {
 
-	client, err := InitDb()
+	client, err := InitDB()
 
 	if err != nil {
 		log.Fatal(err)

@@ -2,8 +2,6 @@ package mongo
 
 import (
 	"context"
-	"log"
-	"os"
 	"time"
 
 	"github.com/elliotchance/sshtunnel"
@@ -23,12 +21,10 @@ func initTunnel() {
 		// 本地绑定端口
 		"3733",
 	)
-	logger := log.New(os.Stdout, "", log.Ldate|log.Lmicroseconds)
-	tunnel.Log = logger
 	go tunnel.Start()
 }
 
-func InitDb() (*mongo.Client, error) {
+func InitDB() (*mongo.Client, error) {
 
 	initTunnel()
 	credential := options.Credential{
@@ -41,11 +37,18 @@ func InitDb() (*mongo.Client, error) {
 
 	clientOpts := options.Client().ApplyURI("mongodb://localhost:3733/?connect=direct").
 		SetAuth(credential)
-	
+
 	//连接到MongoDB
 	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
 	defer cancel()
 
 	client, err := mongo.Connect(ctx, clientOpts)
 	return client, err
+}
+
+
+func Query(sql interface{}, coll string)(*mongo.Cursor, error){
+	client, _ := InitDB()
+	col := client.Database("admin").Collection(coll)
+	return col.Aggregate(context.Background(), sql)
 }
