@@ -45,16 +45,13 @@
 结果：`webpack@5.58.1 external:25.876045`
 
 其中外部依赖度的定义如下：
-$$
-D=\left\{\begin{array}{lr}
-0 & \text { The project has no dependencies } \\
-\frac{1}{N} \sum_{i \text { in Dependency list }} D_{i}+N & \text { The project has } N \text { dependencies }
-\end{array}\right.
-$$
+
+![image-20220329195658375](https://image-2021-wu.oss-cn-beijing.aliyuncs.com/blogs/picturesimage-20220329195658375.png)
+
 MTTU的定义如下：
-$$
-M T T U=\frac{1}{n} \sum \left(T_\text{update\_dependecy }-T_\text{dependecy\_release}\right)
-$$
+
+![image-20220329195715073](https://image-2021-wu.oss-cn-beijing.aliyuncs.com/blogs/picturesimage-20220329195715073.png)
+
 其中，$T_\text{update\_dependecy }$ 是指这个依赖项新版本发布的时间，$T_\text{dependecy\_release}$ 是指在该项目中，将依赖更新到新版本的时间。
 
 #### 拉取组件的历史版本
