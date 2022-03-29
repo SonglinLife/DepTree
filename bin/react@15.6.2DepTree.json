@@ -1,0 +1,184 @@
+[
+    {
+        "name": "react",
+        "version": "15.6.2",
+        "time": "2017-09-26T00:10:25.817Z",
+        "Index": 1,
+        "parentIndex": 0
+    },
+    {
+        "name": "loose-envify",
+        "version": "1.4.0",
+        "time": "2018-07-10T11:09:45.917Z",
+        "Index": 2,
+        "parentIndex": 1
+    },
+    {
+        "name": "object-assign",
+        "version": "4.1.1",
+        "time": "2017-01-16T15:35:15.282Z",
+        "Index": 3,
+        "parentIndex": 1
+    },
+    {
+        "name": "prop-types",
+        "version": "15.8.1",
+        "time": "2022-01-05T00:08:33.458Z",
+        "Index": 4,
+        "parentIndex": 1
+    },
+    {
+        "name": "create-react-class",
+        "version": "15.7.0",
+        "time": "2020-10-15T22:27:36.683Z",
+        "Index": 5,
+        "parentIndex": 1
+    },
+    {
+        "name": "fbjs",
+        "version": "0.8.18",
+        "time": "2021-10-23T16:21:38.347Z",
+        "Index": 6,
+        "parentIndex": 1
+    },
+    {
+        "name": "js-tokens",
+        "version": "4.0.0",
+        "time": "2018-01-28T11:58:58.17Z",
+        "Index": 7,
+        "parentIndex": 2
+    },
+    {
+        "name": "loose-envify",
+        "version": "1.4.0",
+        "time": "2018-07-10T11:09:45.917Z",
+        "Index": 8,
+        "parentIndex": 4
+    },
+    {
+        "name": "object-assign",
+        "version": "4.1.1",
+        "time": "2017-01-16T15:35:15.282Z",
+        "Index": 9,
+        "parentIndex": 4
+    },
+    {
+        "name": "react-is",
+        "version": "16.13.1",
+        "time": "2020-03-19T19:53:28.493Z",
+        "Index": 10,
+        "parentIndex": 4
+    },
+    {
+        "name": "loose-envify",
+        "version": "1.4.0",
+        "time": "2018-07-10T11:09:45.917Z",
+        "Index": 11,
+        "parentIndex": 5
+    },
+    {
+        "name": "object-assign",
+        "version": "4.1.1",
+        "time": "2017-01-16T15:35:15.282Z",
+        "Index": 12,
+        "parentIndex": 5
+    },
+    {
+        "name": "core-js",
+        "version": "1.2.7",
+        "time": "2016-07-17T21:22:00.033Z",
+        "Index": 13,
+        "parentIndex": 6
+    },
+    {
+        "name": "isomorphic-fetch",
+        "version": "2.2.1",
+        "time": "2016-01-15T09:27:42.311Z",
+        "Index": 14,
+        "parentIndex": 6
+    },
+    {
+        "name": "loose-envify",
+        "version": "1.4.0",
+        "time": "2018-07-10T11:09:45.917Z",
+        "Index": 15,
+        "parentIndex": 6
+    },
+    {
+        "name": "object-assign",
+        "version": "4.1.1",
+        "time": "2017-01-16T15:35:15.282Z",
+        "Index": 16,
+        "parentIndex": 6
+    },
+    {
+        "name": "promise",
+        "version": "7.3.1",
+        "time": "2017-06-19T22:15:43.634Z",
+        "Index": 17,
+        "parentIndex": 6
+    },
+    {
+        "name": "setimmediate",
+        "version": "1.0.5",
+        "time": "2016-09-12T00:59:56.656Z",
+        "Index": 18,
+        "parentIndex": 6
+    },
+    {
+        "name": "ua-parser-js",
+        "version": "0.7.31",
+        "time": "2021-10-27T07:02:53.068Z",
+        "Index": 19,
+        "parentIndex": 6
+    },
+    {
+        "name": "whatwg-fetch",
+        "version": "3.6.2",
+        "time": "2021-02-27T18:45:53.796Z",
+        "Index": 20,
+        "parentIndex": 14
+    },
+    {
+        "name": "node-fetch",
+        "version": "1.7.3",
+        "time": "2017-09-08T06:28:18.255Z",
+        "Index": 21,
+        "parentIndex": 14
+    },
+    {
+        "name": "asap",
+        "version": "2.0.6",
+        "time": "2017-07-10T15:21:36.791Z",
+        "Index": 22,
+        "parentIndex": 17
+    },
+    {
+        "name": "encoding",
+        "version": "0.1.13",
+        "time": "2020-07-10T07:02:11.638Z",
+        "Index": 23,
+        "parentIndex": 21
+    },
+    {
+        "name": "is-stream",
+        "version": "1.1.0",
+        "time": "2016-04-12T07:41:55.666Z",
+        "Index": 24,
+        "parentIndex": 21
+    },
+    {
+        "name": "iconv-lite",
+        "version": "0.6.3",
+        "time": "2021-05-24T03:00:17.928Z",
+        "Index": 25,
+        "parentIndex": 23
+    },
+    {
+        "name": "safer-buffer",
+        "version": "2.1.2",
+        "time": "2018-04-08T10:42:42.13Z",
+        "Index": 26,
+        "parentIndex": 25
+    }
+]

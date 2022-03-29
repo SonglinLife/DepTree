@@ -76,7 +76,7 @@ type EncodeTree struct{
 	Name string `json:"name"`
 	Version string `json:"version"`
 	Time time.Time `json:"time"`
-	License string 	`json:"licencse"`
+	// License string 	`json:"licencse"`
 	Index int `json:"Index"`
 	ParentIndex int `json:"parentIndex"`
 }
@@ -105,7 +105,7 @@ func(root *DepTree)  LevelOrder(){
 			Time: node.dep.Time,
 			Index: int(node.index),
 			ParentIndex: int(node.parent),
-			License: node.dep.Licence,
+			// License: node.dep.Licence,
 		}
 		e = append(e, et)
 		for _, clid := range node.dep.Children {
