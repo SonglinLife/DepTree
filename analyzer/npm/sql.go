@@ -3,8 +3,8 @@ package npm
 import (
 	"context"
 	"fmt"
-	"opendep/depstr"
 	"opendep/mongo"
+	"time"
 )
 
 /**
@@ -23,10 +23,10 @@ func NpmRecords(name, version string) (*Records, bool) {
 	]
 	`
 	sql = fmt.Sprintf(sql, name, version)
-	cursor, err := mongo.Query(depstr.Sqlstr2Bson(sql),"npm_records")
+	cursor, err := mongo.Query(sql, "npm_records")
 	fl := false
 
-	if err != nil{
+	if err != nil {
 		return record, fl
 	}
 	defer cursor.Close(context.Background())
@@ -43,19 +43,19 @@ func NpmRecords(name, version string) (*Records, bool) {
  * @param {string} name
  * @return {*}
  */
-func NpmMetas(name string) []Metas{
+func NpmMetas(name string) []Metas {
 	meta := []Metas{}
 	sql := `
 		[
 			{"$match":{"name":"%s"}},
 			{"$unwind":"$releases"},
-			{"$project":{"_id":0, "time":"$releases.time", "name":1, "version":"$releases.version"}},
+			{"$project":{"_id":0, "time":"$releases.time", "name":1, "version":"$releases.version"}}
 		]
 	`
 	sql = fmt.Sprintf(sql, name)
-	
-	cursor, err := mongo.Query(depstr.Sqlstr2Bson(sql), "npm_metas")
-	if err != nil{
+
+	cursor, err := mongo.Query(sql, "npm_metas")
+	if err != nil {
 		return meta
 	}
 	defer cursor.Close(context.Background())
@@ -65,6 +65,28 @@ func NpmMetas(name string) []Metas{
 	return meta
 }
 
-func VersionTime(name, version string){
+func VersionTime(name, version string) *time.Time{
+	meta := []Metas{}
+	sql := `
+		[
+			{"$match":{"name":"%s"}},
+			{"$unwind":"$releases"},
+			{"$project":{"_id":0, "time":"$releases.time", "name":1, "version":"$releases.version"}},
+			{"$match":{"version":"%s"}}
+		]
+	`
+	sql = fmt.Sprintf(sql, name, version)
 
+	cursor, err := mongo.Query(sql, "npm_metas")
+	if err != nil {
+		return nil
+	}
+	defer cursor.Close(context.Background())
+
+	cursor.All(context.Background(), &meta)
+
+	if len(meta) == 0{
+		return nil
+	}
+	return &meta[0].Time
 }

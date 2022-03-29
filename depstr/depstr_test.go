@@ -46,7 +46,7 @@ func TestAggregate(t *testing.T) {
 
 	client, _ := mongo.InitDB()
 	npm := client.Database("admin").Collection("npm_records")
-	cursor, _ := npm.Aggregate(context.TODO(), Sqlstr2Bson(sqlstr))
+	cursor, _ := npm.Aggregate(context.TODO(), mongo.Sqlstr2Bson(sqlstr))
 	var result []Records
 	cursor.All(context.TODO(), &result)
 
@@ -72,7 +72,7 @@ func TestMetas(t *testing.T) {
 	npm_metas := client.Database("admin").Collection("npm_metas")
 	var result []Records
 
-	cursor, _ := npm_metas.Aggregate(context.Background(), Sqlstr2Bson(sql))
+	cursor, _ := npm_metas.Aggregate(context.Background(), mongo.Sqlstr2Bson(sql))
 	cursor.All(context.TODO(), &result)
 	fmt.Println(result)
 }
@@ -93,7 +93,7 @@ func TestGetdep(t *testing.T) {
 	record := NewRecords()
 
 
-	cursor, _ := mongo.Query(Sqlstr2Bson(sql),"npm_records")
+	cursor, _ := mongo.Query(sql,"npm_records")
 	defer cursor.Close(context.Background())
 	for cursor.Next(context.Background()) {
 		cursor.Decode(record)
@@ -124,12 +124,12 @@ func TestUnion(t *testing.T) {
 		
 	]
 	`
-	Sqlstr2Bson(sql)
+	mongo.Sqlstr2Bson(sql)
 	// client, _ := mongo.InitDB()
 	// npm_metas := client.Database("admin").Collection("npm_records")
 	// var result []Records
 
-	// cursor, _ := npm_metas.Aggregate(context.Background(), Sqlstr2Bson(sql))
+	// cursor, _ := npm_metas.Aggregate(context.Background(), mongo.Sqlstr2Bson(sql))
 	// cursor.All(context.TODO(), &result)
 	// fmt.Println(result)
 

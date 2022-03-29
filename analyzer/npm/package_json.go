@@ -1,7 +1,8 @@
 package npm
 
 import (
-	"fmt"
+	"context"
+	"log"
 	"opendep/depstr"
 	"sort"
 	"time"
@@ -42,7 +43,7 @@ func Npmpkg(dep *depstr.DepTree) bool {
 func CleanClidren(dep *depstr.DepTree) {
 
 	for _, cdep := range dep.Children {
-		fmt.Println(cdep.Version.Org)
+
 		constraint, err := semver.NewConstraint(cdep.Version.Org)
 		if err != nil {
 			return
@@ -58,7 +59,7 @@ func CleanClidren(dep *depstr.DepTree) {
 		for _, meta := range metas {
 
 			version, err := semver.NewVersion(meta.Version)
-			if err != nil{
+			if err != nil {
 				continue
 			}
 			// fmt.Println(version.Original())
@@ -77,17 +78,68 @@ func CleanClidren(dep *depstr.DepTree) {
 	}
 }
 
-func BuildDepTree(root *depstr.DepTree) {
 
-	q := depstr.NewQueue()
-	q.Push(root)
-	for !q.Empty() {
-		node := q.Pop().(*depstr.DepTree)
-		Npmpkg(node)       // 获取该节点的子依赖信息
-		CleanClidren(node) // 解析为最大满足的版本号
-		for _, clid := range node.Children {
-			q.Push(clid)
+func BuildDepTree(root *depstr.DepTree) bool {
+	ch := make(chan bool, 1)
+	s  := make(chan bool, 1)
+	ctx, c := context.WithTimeout(context.Background(), 30*time.Second)
+	// 限制建立依赖树的时间不超过5s
+	defer c()
+	go func() {
+		select{
+		case ch <- buildTree(root):
+		case <- s:
+		}
+		
+	}()
+	for{
+		select {
+		case <-ctx.Done():
+			log.Printf("name %v version %v out of time", root.Name, root.Version)
+			// time.Sleep(10 *time.Second)
+			// ctx, c = context.WithTimeout(context.Background(), 10*time.Second)
+			// 限制建立依赖树的时间不超过5s
+
+			s <- true
+			return false
+		
+		case <-ch:
+			return true
 		}
 	}
 
+
 }
+
+func buildTree(root *depstr.DepTree) bool {
+	q := depstr.NewQueue()
+
+	type Node struct {
+		deptree *depstr.DepTree
+		layer int
+	}
+	q.Push(Node{
+		deptree: root,
+		layer: 1,
+	})
+	noLoop := map[string]int{}
+	noLoop[root.Name] = 1
+	for !q.Empty() {
+		node := q.Pop().(Node)
+		Npmpkg(node.deptree)       // 获取该节点的子依赖信息
+		CleanClidren(node.deptree) // 解析为最大满足的版本号
+		for _, clid := range node.deptree.Children {
+			if noLoop[clid.Name] ==0 || noLoop[clid.Name] == node.layer + 1{
+				// 不准出现依赖回溯
+				q.Push(Node{
+					deptree: clid,
+					layer: node.layer + 1,
+				})
+				noLoop[clid.Name] = node.layer + 1
+			}
+				
+		}
+	}
+	return true
+}
+

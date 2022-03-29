@@ -3,6 +3,8 @@ module opendep
 go 1.17
 
 require (
+	github.com/Jeffail/tunny v0.1.4
+	github.com/Masterminds/semver v1.5.0
 	github.com/Masterminds/semver/v3 v3.1.1
 	github.com/elliotchance/sshtunnel v1.3.1
 	go.mongodb.org/mongo-driver v1.8.4
